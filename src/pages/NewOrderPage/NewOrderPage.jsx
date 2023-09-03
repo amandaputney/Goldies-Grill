@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import * as itemsAPI from '../../utilities/items-api'
 
 export default function NewOrderPage() {
   const [menuItems, setMenuItems] = useState([]);
@@ -7,9 +8,13 @@ export default function NewOrderPage() {
   //when the data returns, call setMenuItems to update state
 
   //all hooks are functions
-  useEffect(function() {
-   
-  }, []);
+useEffect(function() {
+  async function getItems() {
+    const items = await itemsAPI.getAll();
+    setMenuItems(items);
+  }
+  getItems();
+}, []);
 
   return (
     <h1>NewOrderPage</h1>
